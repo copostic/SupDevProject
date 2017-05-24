@@ -177,11 +177,9 @@ const turtle = new jge.Texture({
 const history = [];
 const commands = {
     'AV': function (args) {
-        args[0]; // nom de commande
 
         if (args.length === 2) {
             const distance = Number(args[1]);
-
             turtle.translate.x = Math.cos(turtle.rotate * (Math.PI / 180)) * distance;
             turtle.translate.y = Math.sin(turtle.rotate * (Math.PI / 180)) * distance;
         } else {
@@ -190,7 +188,6 @@ const commands = {
         console.log('AV command executée');
     },
     'RE': function (args) {
-        args[0]; // nom de commande
 
         if (args.length === 2) {
             const distance = Number(args[1]);
@@ -203,7 +200,6 @@ const commands = {
         console.log('RE command executée');
     },
     'FCC': function (args) {
-        args[0]; // commande
 
         if (args.length === 2) {
             const colortoset = args[1];
@@ -217,7 +213,6 @@ const commands = {
     },
 
     'LC': function (args) {
-        args[0]; // commande
 
         if (args.length === 1) {
             turtle.setTraceVisibility(false);
@@ -227,7 +222,6 @@ const commands = {
     },
 
     'BC': function (args) {
-        args[0]; // commande
 
         if (args.length === 1) {
             turtle.setTraceVisibility(true);
@@ -237,7 +231,6 @@ const commands = {
     },
 
     'TG': function (args) {
-        args[0]; // commande
 
         if (args.length === 2) {
             const angle = args[1];
@@ -249,7 +242,6 @@ const commands = {
     },
 
     'TD': function (args) {
-        args[0]; // commande
 
         if (args.length === 2) {
             const angle = args[1];
@@ -261,7 +253,6 @@ const commands = {
     },
 
     'CT': function (args) {
-        args[0]; // commande
 
         if (args.length === 1) {
             turtle.setVisibility(false);
@@ -271,7 +262,6 @@ const commands = {
     },
 
     'MT': function (args) {
-        args[0]; // commande
 
         if (args.length === 1) {
             turtle.setVisibility(true);
@@ -281,15 +271,17 @@ const commands = {
     },
 
     'VE': function (args) {
-        args[0]; // commande
 
         if (args.length === 1) {
             location.reload();
         }
 
         console.log('VE command executée');
-    }
+    },
 
+    'REPETE': function (args) {
+        console.log('REPETE command executée');
+    }
 
 }
 
@@ -308,6 +300,23 @@ input.addEventListener('keydown', (e) => {
     history.push(command);
 
     if (command in commands) {
+        if (command == 'REPETE') {
+
+            var re = /\[(.*?)\]/;
+            var matches = textInput.match(re);
+            var submatch = matches[1];
+            loopQty = words[1];
+            const arguments = submatch.split(' ');
+            functionName = arguments[0];
+            i = 0;
+            while (i < loopQty) {
+                commands[functionName](arguments);
+                turtle.updatePosition();
+                turtle.drawLineTranslate(back_instance.renderer);
+                turtle.render(front_instance.renderer);
+                i++;
+            }
+        }
         commands[command](words);
 
     } else {
