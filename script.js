@@ -155,6 +155,10 @@ jge.Texture = class Texture {
     setVisibility(status) {
         this.visible = status;
     }
+
+    setTraceVisibility(status) {
+        this.trace = status;
+    }
 };
 
 const input = document.querySelector('input');
@@ -219,7 +223,7 @@ const commands = {
         args[0]; // commande
 
         if (args.length === 1) {
-            turtle.changeColor('#ffffff');
+            turtle.setTraceVisibility(false);
         }
 
         console.log('LC command executée');
@@ -229,24 +233,25 @@ const commands = {
         args[0]; // commande
 
         if (args.length === 1) {
-            turtle.changeColor('#000000');
+            turtle.setTraceVisibility(true);
         }
 
         console.log('BC command executée');
     },
 
-    'TD': function (args) {
+    'TG': function (args) {
         args[0]; // commande
 
         if (args.length === 2) {
             const angle = args[1];
-            turtle.rotateTurtle(angle);
+            angletoset = '+' + angle;
+            turtle.rotateTurtle(angletoset);
         }
 
-        console.log('TD command executée');
+        console.log('TG command executée');
     },
 
-    'TG': function (args) {
+    'TD': function (args) {
         args[0]; // commande
 
         if (args.length === 2) {
@@ -255,7 +260,7 @@ const commands = {
             turtle.rotateTurtle(angletoset);
         }
 
-        console.log('TG command executée');
+        console.log('TD command executée');
     },
 
     'CT': function (args) {
