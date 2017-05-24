@@ -32,8 +32,8 @@ const commands = {
         if (args.length === 2) {
             const distance = Number(args[1]);
 
-            turtle.translate.x = Math.cos(turtle.rotate * (Math.PI / 111)) * distance; // Il faut trouver le bon nombre à la place de 111
-            turtle.translate.y = Math.sin(turtle.rotate * (Math.PI / 111)) * distance;
+            turtle.translate.x = Math.cos(turtle.rotate * (Math.PI / -180)) * distance; // Il faut trouver le bon nombre à la place de 111
+            turtle.translate.y = Math.sin(turtle.rotate * (Math.PI / -180)) * distance;
         } else {
             console.log('error');
         }
