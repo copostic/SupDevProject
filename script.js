@@ -144,6 +144,11 @@ jge.Texture = class Texture {
     changeColor(colortoset) {
         this.color = colortoset;
     }
+
+    rotateTurtle(angle) {
+        angle -= 90;
+        this.rotate = angle;
+    }
 };
 
 const input = document.querySelector('input');
@@ -220,7 +225,31 @@ const commands = {
         }
 
         console.log('BC command executée');
-    }
+    },
+
+    'TD': function (args) {
+        args[0]; // commande
+
+        if (args.length === 2) {
+            const angle = args[1];
+            turtle.rotateTurtle(angle);
+        }
+
+        console.log('TD command executée');
+    },
+
+    'TG': function (args) {
+        args[0]; // commande
+
+        if (args.length === 2) {
+            const angle = args[1];
+            angletoset = '-' + angle;
+            turtle.rotateTurtle(angletoset);
+        }
+
+        console.log('TG command executée');
+    },
+
 }
 
 
