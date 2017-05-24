@@ -169,7 +169,7 @@ const turtle = new jge.Texture({
     width: 16,
     height: 16,
     x: largeurEcran / 2,
-    y: hauteurEcran / 2,
+    y: ((hauteurEcran / 2) - 50),
 });
 
 
