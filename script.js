@@ -280,7 +280,18 @@ const commands = {
         }
 
         console.log('MT command executée');
+    },
+
+    'VE': function (args) {
+        args[0]; // commande
+
+        if (args.length === 1) {
+            location.reload();
+        }
+
+        console.log('VE command executée');
     }
+
 
 }
 
@@ -305,8 +316,7 @@ input.addEventListener('keydown', (e) => {
         console.log('Commande inconnue!');
     }
 
-    historyDiv.innerHTML = history.map(command => `<p class="command">${textInput}</p>`)
-        .join('')
+    historyDiv.innerHTML += `<p class="command">${textInput}</p>`;
 
     var objDiv = document.getElementsByClassName("history");
     objDiv[0].scrollTop = objDiv[0].scrollHeight;
