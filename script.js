@@ -107,7 +107,6 @@ jge.Texture = class Texture {
         this.oldPosition.y = this.position.y;
         this.position.x += this.translate.x;
         this.position.y += this.translate.y;
-
         this.translate.x = 0;
         this.translate.y = 0;
     }
@@ -203,7 +202,6 @@ const commands = {
         }
         console.log('RE command executée');
     },
-
     'FCC': function (args) {
         args[0]; // commande
 
