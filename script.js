@@ -143,13 +143,17 @@ jge.Texture = class Texture {
         renderer.context.strokeRect(this.position.x - this.box.width / 2, this.position.y - this.box.height / 2, this.box.width, this.box.height);
     }
 
-    changeColor(colortoset) {
-        this.color = colortoset;
+    changeColor(color) {
+        this.color = color;
     }
 
     rotateTurtle(angle) {
         angle -= 90;
         this.rotate = angle;
+    }
+
+    setVisibility(status) {
+        this.visible = status;
     }
 };
 
@@ -253,6 +257,26 @@ const commands = {
 
         console.log('TG command executée');
     },
+
+    'CT': function (args) {
+        args[0]; // commande
+
+        if (args.length === 1) {
+            turtle.setVisibility(false);
+        }
+
+        console.log('CT command executée');
+    },
+
+    'MT': function (args) {
+        args[0]; // commande
+
+        if (args.length === 1) {
+            turtle.setVisibility(true);
+        }
+
+        console.log('MT command executée');
+    }
 
 }
 
