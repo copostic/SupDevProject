@@ -10,6 +10,8 @@
     height: 100px;
     background-color: black;
     color: lime;
+    position: fixed;
+    bottom: 0px;
 }
 
 canvas {
