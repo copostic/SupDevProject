@@ -305,7 +305,7 @@ input.addEventListener('keydown', (e) => {
         console.log('Commande inconnue!');
     }
 
-    historyDiv.innerHTML = history.map(command => `<p class="command">${command}</p>`)
+    historyDiv.innerHTML = history.map(command => `<p class="command">${textInput}</p>`)
         .join('')
 
     var objDiv = document.getElementsByClassName("history");
