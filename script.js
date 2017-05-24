@@ -149,7 +149,7 @@ jge.Texture = class Texture {
 
     rotateTurtle(angle) {
         angle -= 90;
-        this.rotate = angle;
+        this.rotate += angle;
     }
 
     setVisibility(status) {
