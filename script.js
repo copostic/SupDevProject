@@ -1,3 +1,5 @@
+//MISE EN PLACE DU GAME ENGINE
+
 const jge = {};
 
 
@@ -164,6 +166,8 @@ const turtle = new jge.Texture({
     y: hauteurEcran / 2,
 });
 
+
+//GESTION DES COMMANDES ENTREES PAR L'UTILISATEUR ET DE L'HISTORIQUE
 const history = [];
 const commands = {
     'AV': function (args) {
