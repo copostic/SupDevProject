@@ -53,3 +53,7 @@ input {
 p {
     margin: 0
 }
+
+input {
+    border: none;
+}
