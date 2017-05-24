@@ -105,7 +105,6 @@ jge.Texture = class Texture {
     updatePosition() {
         this.oldPosition.x = this.position.x;
         this.oldPosition.y = this.position.y;
-
         this.position.x += this.translate.x;
         this.position.y += this.translate.y;
 
@@ -306,8 +305,11 @@ input.addEventListener('keydown', (e) => {
         console.log('Commande inconnue!');
     }
 
-    historyDiv.innerHTML = history.map(command => `<p>${command}</p>`)
+    historyDiv.innerHTML = history.map(command => `<p class="command">${command}</p>`)
         .join('')
+
+    var objDiv = document.getElementsByClassName("history");
+    objDiv[0].scrollTop = objDiv[0].scrollHeight;
 })
 
 
