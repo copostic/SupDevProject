@@ -194,7 +194,7 @@ const commands = {
 
         if (args.length === 2) {
             const colortoset = args[1];
-            if ((colortoset.length === 7) && (colortoset !== "#ffffff")) {
+            if (colortoset.length === 7 && colortoset.match(/(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)/i)) {
                 console.log(colortoset);
                 turtle.changeColor(colortoset);
             }
