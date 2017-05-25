@@ -13,12 +13,6 @@ jge.GameInstance = class {
             currentFrame: Date.now(),
             stepFrame: 0
         };
-
-        console.log('A %cGame Instance%c of %cjge.js for canvas%c has been created;',
-            'color: red',
-            'color: black',
-            'color: red',
-            'color: black');
     }
 
     updateDelta() {
@@ -300,7 +294,7 @@ input.addEventListener('keydown', (e) => {
     history.push(command);
 
     if (command in commands) {
-        if (command == 'REPETE') {
+        if (command === 'REPETE') {
 
             var re = /\[(.*?)\]/;
             var matches = textInput.match(re);
