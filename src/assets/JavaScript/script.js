@@ -168,12 +168,10 @@ const turtle = new jge.Texture({
 
 
 //GESTION DES COMMANDES ENTREES PAR L'UTILISATEUR ET DE L'HISTORIQUE
-const history = [];
 const commands = {
     'AV': function (args) {
-
-        if (args.length === 2) {
-            const distance = Number(args[1]);
+        if ((args.length === 2) && (isNumeric(args[1]))) {
+            const distance = Math.abs(args[1]); //Valeur absolue de l'argument pour bloquer les valeurs négatives
             turtle.translate.x = Math.cos(turtle.rotate * (Math.PI / 180)) * distance;
             turtle.translate.y = Math.sin(turtle.rotate * (Math.PI / 180)) * distance;
         } else {
@@ -183,10 +181,9 @@ const commands = {
     },
     'RE': function (args) {
 
-        if (args.length === 2) {
-            const distance = Number(args[1]);
-
-            turtle.translate.x = Math.cos(turtle.rotate * (Math.PI / -180)) * distance; // Il faut trouver le bon nombre à la place de 111
+        if ((args.length === 2) && (isNumeric(args[1]))) {
+            const distance = Math.abs(args[1]); //Valeur absolue de l'argument pour bloquer les valeurs négatives
+            turtle.translate.x = Math.cos(turtle.rotate * (Math.PI / -180)) * distance;
             turtle.translate.y = Math.sin(turtle.rotate * (Math.PI / -180)) * distance;
         } else {
             console.log('error');
@@ -226,8 +223,8 @@ const commands = {
 
     'TG': function (args) {
 
-        if (args.length === 2) {
-            const angle = args[1];
+        if ((args.length === 2) && (isNumeric(args[1]))) {
+            const angle = Math.abs(args[1]);
             angletoset = '+' + angle;
             turtle.rotateTurtle(angletoset);
         }
@@ -237,8 +234,8 @@ const commands = {
 
     'TD': function (args) {
 
-        if (args.length === 2) {
-            const angle = args[1];
+        if ((args.length === 2) && (isNumeric(args[1]))) {
+            const angle = Math.abs(args[1]);
             angletoset = '-' + angle;
             turtle.rotateTurtle(angletoset);
         }
@@ -287,24 +284,37 @@ input.addEventListener('keydown', (e) => {
     const textInput = document.querySelector('input').value;
     input.value = '';
 
-    const words = textInput.split(' ');
+    words = textInput.split(' ');
 
     const command = words[0];
 
-    history.push(command);
+    //Si deux commandes --> ajout de la seconde dans l'historique
+    if (words.length === 4) {
+        command1 = words[2];
+        subwords = words.slice(2, 4); //Créé une seconde liste contenant la commande et sa valeur
+        temparray = words.slice(0, 2);
+        words = temparray; // Garde uniquement premiere commande / argument
+    }
 
     if (command in commands) {
         if (command === 'REPETE') {
-
-            var re = /\[(.*?)\]/;
-            var matches = textInput.match(re);
+            var matches = textInput.match(/\[(.*?)\]/);
             var submatch = matches[1];
             loopQty = words[1];
-            const arguments = submatch.split(' ');
+            arguments = submatch.split(' ');
             functionName = arguments[0];
+            if (arguments.length === 4) {
+                command1 = arguments[2];
+                subwords = arguments.slice(2, 4); //Créé une seconde liste contenant la commande et sa valeur
+                temparray = arguments.slice(0, 2);
+                arguments = temparray; // Garde uniquement premiere commande / argument
+            }
             i = 0;
             while (i < loopQty) {
                 commands[functionName](arguments);
+                if (typeof subwords !== 'undefined') {
+                    commands[command1](subwords);
+                }
                 turtle.updatePosition();
                 turtle.drawLineTranslate(back_instance.renderer);
                 turtle.render(front_instance.renderer);
@@ -312,6 +322,10 @@ input.addEventListener('keydown', (e) => {
             }
         }
         commands[command](words);
+
+        if (typeof subwords !== 'undefined' && typeof arguments === 'undefined') {
+            commands[command1](subwords);
+        }
 
     } else {
         console.log('Commande inconnue!');
@@ -322,8 +336,6 @@ input.addEventListener('keydown', (e) => {
     var objDiv = document.getElementsByClassName("history");
     objDiv[0].scrollTop = objDiv[0].scrollHeight;
 })
-
-
 
 
 // instance pour les lignes
@@ -345,6 +357,11 @@ turtle.render(front_instance.renderer);
 turtle.trace = true;
 
 requestAnimationFrame(loop);
+
+function isNumeric(n) {
+    return !isNaN(parseFloat(n)) && isFinite(n);
+}
+
 
 function loop() {
     requestAnimationFrame(loop); // boucle 60fps
