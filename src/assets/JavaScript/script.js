@@ -167,7 +167,7 @@ const turtle = new jge.Texture({
 });
 
 
-//GESTION DES COMMANDES ENTREES PAR L'UTILISATEUR ET DE L'HISTORIQUE
+//Liste des commandes gérées et actions liées
 const commands = {
     'AV': function (args) {
         if ((args.length === 2) && (isNumeric(args[1]))) {
@@ -300,7 +300,7 @@ const commands = {
 
 }
 
-
+//Evenement touche appuyée
 input.addEventListener('keydown', (e) => {
     if (e.key !== 'Enter')
         return;
@@ -340,13 +340,13 @@ input.addEventListener('keydown', (e) => {
 })
 
 
-// instance pour les lignes
+// Instance pour les lignes
 const back_instance = new jge.GameInstance({
     width: largeurEcran,
     height: hauteurEcran
 });
 
-// instance pour la tortue
+// Instance pour la tortue
 const front_instance = new jge.GameInstance({
     width: largeurEcran,
     height: hauteurEcran
@@ -355,16 +355,18 @@ const front_instance = new jge.GameInstance({
 
 turtle.render(front_instance.renderer);
 
-// desactive la trace de la tortue
+// Active la tracé de la tortue
 turtle.trace = true;
 
 requestAnimationFrame(loop);
 
+//Vérifie si la variable passée est un nombre
 function isNumeric(n) {
     return !isNaN(parseFloat(n)) && isFinite(n);
 }
 
 
+//Boucle d'affichage
 function loop() {
     requestAnimationFrame(loop); // boucle 60fps
 
