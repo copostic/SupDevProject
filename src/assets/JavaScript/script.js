@@ -159,7 +159,7 @@ const historyDiv = document.querySelector('div.history');
 const largeurEcran = window.innerWidth;
 const hauteurEcran = window.innerHeight;
 const turtle = new jge.Texture({
-    src: 'img.png',
+    src: 'assets/img/img.png',
     width: 16,
     height: 16,
     x: largeurEcran / 2,
