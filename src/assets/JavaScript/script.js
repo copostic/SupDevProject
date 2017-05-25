@@ -271,6 +271,30 @@ const commands = {
     },
 
     'REPETE': function (args) {
+        var matches = textInput.match(/\[(.*?)\]/);
+        var submatch = matches[1];
+        loopQty = words[1];
+        arguments = submatch.split(' ');
+        functionName = arguments[0];
+        if (arguments.length === 4) {
+            doubleCommand = true;
+            command1 = arguments[2];
+            subwords = arguments.slice(2, 4); //Créé une seconde liste contenant la commande et sa valeur
+            arguments = arguments.slice(0, 2); // Garde uniquement premiere commande / argument
+        } else {
+            doubleCommand = false;
+        }
+        i = 0;
+        while (i < loopQty) {
+            commands[functionName](arguments);
+            if (doubleCommand) {
+                commands[command1](subwords);
+            }
+            turtle.updatePosition();
+            turtle.drawLineTranslate(back_instance.renderer);
+            turtle.render(front_instance.renderer);
+            i++;
+        }
         console.log('REPETE command executée');
     }
 
@@ -281,60 +305,38 @@ input.addEventListener('keydown', (e) => {
     if (e.key !== 'Enter')
         return;
 
-    const textInput = document.querySelector('input').value;
+    textInput = document.querySelector('input').value.toUpperCase();
     input.value = '';
 
     words = textInput.split(' ');
 
     const command = words[0];
 
-    //Si deux commandes --> ajout de la seconde dans l'historique
-    if (words.length === 4) {
+
+    if (words.length === 4) { //Si deux commandes
+        doubleCommand = true;
         command1 = words[2];
         subwords = words.slice(2, 4); //Créé une seconde liste contenant la commande et sa valeur
-        temparray = words.slice(0, 2);
-        words = temparray; // Garde uniquement premiere commande / argument
+        words = words.slice(0, 2); // Garde uniquement premiere commande / argument
+    } else {
+        doubleCommand = true;
     }
 
     if (command in commands) {
-        if (command === 'REPETE') {
-            var matches = textInput.match(/\[(.*?)\]/);
-            var submatch = matches[1];
-            loopQty = words[1];
-            arguments = submatch.split(' ');
-            functionName = arguments[0];
-            if (arguments.length === 4) {
-                command1 = arguments[2];
-                subwords = arguments.slice(2, 4); //Créé une seconde liste contenant la commande et sa valeur
-                temparray = arguments.slice(0, 2);
-                arguments = temparray; // Garde uniquement premiere commande / argument
-            }
-            i = 0;
-            while (i < loopQty) {
-                commands[functionName](arguments);
-                if (typeof subwords !== 'undefined') {
-                    commands[command1](subwords);
-                }
-                turtle.updatePosition();
-                turtle.drawLineTranslate(back_instance.renderer);
-                turtle.render(front_instance.renderer);
-                i++;
-            }
-        }
         commands[command](words);
 
-        if (typeof subwords !== 'undefined' && typeof arguments === 'undefined') {
+        if (doubleCommand) {
             commands[command1](subwords);
         }
-
     } else {
         console.log('Commande inconnue!');
     }
 
     historyDiv.innerHTML += `<p class="command">${textInput}</p>`;
 
-    var objDiv = document.getElementsByClassName("history");
-    objDiv[0].scrollTop = objDiv[0].scrollHeight;
+
+    var objDiv = document.getElementsByClassName("history"); //Scroll l'historique vers le bas pour afficher
+    objDiv[0].scrollTop = objDiv[0].scrollHeight; //la dernière commande tapée
 })
 
 
