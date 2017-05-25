@@ -319,7 +319,7 @@ input.addEventListener('keydown', (e) => {
         subwords = words.slice(2, 4); //Créé une seconde liste contenant la commande et sa valeur
         words = words.slice(0, 2); // Garde uniquement premiere commande / argument
     } else {
-        doubleCommand = true;
+        doubleCommand = false;
     }
 
     if (command in commands) {
