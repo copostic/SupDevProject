@@ -179,6 +179,14 @@ const commands = {
         }
         console.log('AV command executée');
     },
+    'HELP': function (args) {
+
+        if (args.length === 1) {
+        window.open('notice.pdf');
+        }
+
+        console.log('HELP command executée');
+    },
     'RE': function (args) {
 
         if ((args.length === 2) && (isNumeric(args[1]))) {
