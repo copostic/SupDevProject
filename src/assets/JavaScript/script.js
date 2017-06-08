@@ -182,7 +182,7 @@ const commands = {
     'HELP': function (args) {
 
         if (args.length === 1) {
-        window.open('notice.pdf');
+        window.open('./assets/PDF/notice.pdf');
         }
 
         console.log('HELP command executée');
